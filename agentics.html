@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agentics – Your Realm-Based AI Watchman System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg-dark: #050816;
+      --bg-card: #0b1020;
+      --accent: #4fd1c5;
+      --accent-soft: rgba(79, 209, 197, 0.16);
+      --accent-strong: #38b2ac;
+      --text-main: #f7fafc;
+      --text-muted: #a0aec0;
+      --text-soft: #718096;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --danger: #f56565;
+      --warning: #ed8936;
+      --success: #48bb78;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 180ms ease-out;
+      --max-width: 1120px;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #1a365d 0, #050816 52%, #020309 100%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem 4rem;
+    }
+
+    /* NAVBAR */
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 0.75rem 0 1.25rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: conic-gradient(
+        from 220deg,
+        #4fd1c5,
+        #63b3ed,
+        #805ad5,
+        #4fd1c5
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.7), 0 0 28px rgba(79, 209, 197, 0.6);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #050816;
+    }
+
+    .logo-text-main {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 1.05rem;
+    }
+
+    .logo-text-sub {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .nav-link {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      color: var(--text-soft);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.1);
+      background: radial-gradient(circle at top, #1a365d 0, transparent 60%);
+    }
+
+    .nav-cta {
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #4fd1c5, #63b3ed);
+      color: #050816;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(79, 209, 197, 0.35);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(99, 179, 237, 0.45);
+    }
+
+    /* HERO */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3.5fr) minmax(0, 3fr);
+      gap: 2rem;
+      align-items: center;
+      padding-top: 1.25rem;
+      padding-bottom: 2.25rem;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.15rem 0.6rem 0.15rem 0.3rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(79, 209, 197, 0.5);
+      background-color: rgba(10, 25, 47, 0.9);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle at center, #68d391, #38a169);
+      box-shadow: 0 0 10px rgba(72, 187, 120, 0.8);
+    }
+
+    .hero-pill-label {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 600;
+      font-size: 0.7rem;
+      color: var(--accent);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 3vw, 2.7rem);
+      line-height: 1.12;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #4fd1c5, #63b3ed, #b794f4);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 40rem;
+    }
+
+    .hero-subtitle-strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .btn-primary {
+      padding: 0.7rem 1.3rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: radial-gradient(circle at top left, #4fd1c5, #63b3ed);
+      color: #050816;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 16px 35px rgba(79, 209, 197, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(99, 179, 237, 0.55);
+    }
+
+    .btn-secondary {
+      padding: 0.7rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(15, 23, 42, 0.95);
+      border-color: rgba(148, 163, 184, 0.9);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .hero-footnote {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .hero-footnote strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-grid {
+      position: relative;
+      padding: 1.35rem;
+      border-radius: 24px;
+      background: radial-gradient(circle at top, rgba(79, 209, 197, 0.1), transparent 65%),
+        linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(6, 10, 22, 0.98));
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      overflow: hidden;
+    }
+
+    .hero-grid-orbit {
+      position: absolute;
+      inset: 1.3rem;
+      border-radius: 24px;
+      border: 1px dashed rgba(148, 163, 184, 0.3);
+      pointer-events: none;
+    }
+
+    .hero-grid-heading {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-grid-title {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-grid-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .mini-card {
+      padding: 0.7rem 0.75rem;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.76rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mini-card-tag {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-soft);
+    }
+
+    .mini-card-title {
+      font-weight: 600;
+      font-size: 0.82rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .mini-card-desc {
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+
+    .mini-chip {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      border-radius: 999px;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.66rem;
+      background: rgba(79, 209, 197, 0.12);
+      border: 1px solid rgba(79, 209, 197, 0.6);
+      color: var(--accent);
+    }
+
+    .mini-chip-danger {
+      background: rgba(245, 101, 101, 0.15);
+      border-color: rgba(245, 101, 101, 0.7);
+      color: var(--danger);
+    }
+
+    /* SECTION HEADERS */
+
+    .section {
+      margin-top: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .section-kicker {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+    }
+
+    .section-subtitle {
+      font-size: 0.87rem;
+      color: var(--text-soft);
+      max-width: 26rem;
+    }
+
+    /* REALM STRIP */
+
+    .realm-strip {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: linear-gradient(120deg, rgba(79, 209, 197, 0.1), transparent 55%),
+        rgba(10, 25, 47, 0.96);
+      padding: 0.8rem 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2.4fr) minmax(0, 3fr);
+      gap: 0.9rem;
+      align-items: center;
+    }
+
+    .realm-main {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .realm-main strong {
+      color: var(--accent);
+    }
+
+    .realm-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: flex-end;
+    }
+
+    .realm-tag {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+      white-space: nowrap;
+    }
+
+    /* AGENT GRID */
+
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.3rem;
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-grid {
+        order: -1;
+      }
+      .agents-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .agents-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .shell {
+        padding-inline: 1.1rem;
+      }
+      .realm-strip {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-right {
+        display: none;
+      }
+    }
+
+    .agent-card {
+      border-radius: var(--radius-md);
+      background: rgba(10, 18, 34, 0.96);
+      border: 1px solid var(--border-subtle);
+      padding: 0.85rem 0.9rem 0.9rem;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .agent-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(79, 209, 197, 0.7);
+      background: radial-gradient(circle at top left, rgba(79, 209, 197, 0.14), transparent 55%),
+        rgba(9, 15, 29, 0.98);
+      box-shadow: 0 18px 40px rgba(79, 209, 197, 0.28);
+    }
+
+    .agent-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 11px;
+      background: rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .agent-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+    }
+
+    .agent-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .agent-realm {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .agent-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .agent-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.2rem;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
+
+    .agent-chip {
+      padding: 0.18rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.95);
+      white-space: nowrap;
+    }
+
+    .agent-chip-highlight {
+      border-color: rgba(79, 209, 197, 0.8);
+      color: var(--accent);
+      background: rgba(79, 209, 197, 0.1);
+    }
+
+    .agent-cta {
+      margin-top: 0.35rem;
+      font-size: 0.77rem;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+
+    .agent-cta span {
+      font-size: 0.9em;
+    }
+
+    /* PRICING TEASER */
+
+    .pricing {
+      margin-top: 2.8rem;
+      border-radius: var(--radius-lg);
+      padding: 1.2rem 1rem 1.3rem;
+      background: linear-gradient(130deg, rgba(79, 209, 197, 0.22), rgba(99, 179, 237, 0.15));
+      border: 1px solid rgba(163, 230, 216, 0.6);
+      display: grid;
+      grid-template-columns: minmax(0, 2.5fr) minmax(0, 2fr);
+      gap: 1.1rem;
+      align-items: center;
+      color: #020617;
+    }
+
+    @media (max-width: 800px) {
+      .pricing {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .pricing-left-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .pricing-left-sub {
+      font-size: 0.86rem;
+      color: #1e293b;
+      margin-bottom: 0.6rem;
+    }
+
+    .pricing-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.35);
+      background: rgba(15, 23, 42, 0.06);
+      color: #020617;
+    }
+
+    .pricing-meta {
+      font-size: 0.78rem;
+      color: #0f172a;
+      margin-top: 0.5rem;
+    }
+
+    .pricing-right {
+      justify-self: end;
+      text-align: right;
+    }
+
+    @media (max-width: 800px) {
+      .pricing-right {
+        justify-self: flex-start;
+        text-align: left;
+      }
+    }
+
+    .pricing-price {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .pricing-price span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    .pricing-cta {
+      margin-top: 0.45rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: #020617;
+      color: #e2e8f0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 9px 20px rgba(15, 23, 42, 0.7);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .pricing-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 13px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    /* FOOTER */
+
+    .footer {
+      margin-top: 2.3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.28);
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .footer span.highlight {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <!-- NAV -->
+      <header class="nav">
+        <div class="nav-left">
+          <div class="logo-mark">AΞ</div>
+          <div>
+            <div class="logo-text-main">Agentics</div>
+            <div class="logo-text-sub">Realm-Based AI Watchman System</div>
+          </div>
+        </div>
+        <div class="nav-right">
+          <button class="nav-link">Overview</button>
+          <button class="nav-link">Agents</button>
+          <button class="nav-link">Pricing</button>
+          <button class="nav-cta">Request Early Access</button>
+        </div>
+      </header>
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-left">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            <span class="hero-pill-label">Realm-Based Presence</span>
+            <span>Present in every system you assign it to.</span>
+          </div>
+          <h1 class="hero-title">
+            Your <span>AI Watchman</span><br />
+            for Legal, Data, and Digital Operations.
+          </h1>
+          <p class="hero-subtitle">
+            Agentics is a realm-based AI system that
+            <span class="hero-subtitle-strong">
+              watches, understands, and responds</span>
+            across every digital territory you entrust to it — from E-LegalBoom legal
+            workflows to NOVA/NAVI careers, SURF analytics, and OnGuard cybersecurity.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-primary">
+              Activate Your Agentics Team
+              <span>→</span>
+            </button>
+            <button class="btn-secondary">
+              Explore Agents
+              <span>⟶</span>
+            </button>
+          </div>
+          <div class="hero-footnote">
+            <span><strong>Realm-aware.</strong> Fully present inside its domain.</span>
+            <span>Nothing falls through the cracks.</span>
+          </div>
+        </div>
+
+        <aside class="hero-grid" aria-label="Agentics realm overview">
+          <div class="hero-grid-orbit"></div>
+          <div class="hero-grid-heading">The Watchman Architecture</div>
+          <div class="hero-grid-title">LIDAR sees. OnGuard protects. Agentics orchestrates.</div>
+
+          <div class="hero-grid-columns">
+            <div class="mini-card">
+              <div class="mini-card-tag">LIDAR</div>
+              <div class="mini-card-title">Seer Agent</div>
+              <div class="mini-card-desc">
+                Scans your realms for patterns, gaps, and hidden risks across data,
+                workflows, and roles.
+              </div>
+              <div class="mini-chip">Mapping Realm</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-tag">OnGuard</div>
+              <div class="mini-card-title">Sentinel Agent</div>
+              <div class="mini-card-desc">
+                Guards your tech stack, documents, and identity surface for threats and
+                exposure.
+              </div>
+              <div class="mini-chip mini-chip-danger">Security Realm</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-tag">Agentics Core</div>
+              <div class="mini-card-title">Orchestrator</div>
+              <div class="mini-card-desc">
+                Coordinates every Agent you’ve activated across NOVA/NAVI, E-LegalBoom,
+                SURF, and more.
+              </div>
+              <div class="mini-chip">Oversight Realm</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-tag">Presence</div>
+              <div class="mini-card-title">Assigned Realms</div>
+              <div class="mini-card-desc">
+                Fully aware and fully present within each domain you define — nowhere
+                else.
+              </div>
+              <div class="mini-chip">Realm-Based</div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- REALM SECTION -->
+      <section class="section" id="realms">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Realm-Based Presence</div>
+            <h2 class="section-title">Present in Every Realm You Assign.</h2>
+          </div>
+          <p class="section-subtitle">
+            Agentics doesn’t try to be everywhere. Instead, it lives fully inside each
+            defined realm — watching, understanding, and acting with precision.
+          </p>
+        </div>
+
+        <div class="realm-strip">
+          <div class="realm-main">
+            Assign Agentics to your <strong>legal stack</strong> with E-LegalBoom, your
+            <strong>career stack</strong> with NOVA/NAVI, your
+            <strong>financial stack</strong> with SURF, your
+            <strong>data stack</strong> with Analysis4U, and your
+            <strong>security stack</strong> with OnGuard. Inside each realm,
+            Agentics is fully present, fully aware, and ready to respond.
+          </div>
+          <div class="realm-tags">
+            <div class="realm-tag">Legal Realm – E-LegalBoom</div>
+            <div class="realm-tag">Career Realm – NOVA/NAVI</div>
+            <div class="realm-tag">Money Realm – SURF</div>
+            <div class="realm-tag">Data Realm – Analysis4U</div>
+            <div class="realm-tag">Security Realm – OnGuard</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AGENT GRID -->
+      <section class="section" id="agents">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Agent Library</div>
+            <h2 class="section-title">Nine Agents. One Integrated Watchman System.</h2>
+          </div>
+          <p class="section-subtitle">
+            Each Agent is specialized to its realm but coordinated through Agentics Core.
+            Mix and match to build the AI staff your work actually needs.
+          </p>
+        </div>
+
+        <div class="agents-grid">
+          <!-- LEGAL AGENT -->
+          <article class="agent-card">
+            <div class="agent-header">
+              <div>
+                <div class="agent-name">Legal Agent</div>
+                <div class="agent-realm">Legal Realm · E-LegalBoom</div>
+              </div>
+              <div class="agent-icon">⚖️</div>
+            </div>
+            <p class="agent-desc">
+              Drafts, refines, and explains documents through E-LegalBoom. Keeps legal
+              workflows aligned, logged, and ready for export.
+            </p>
+            <div class="agent-meta">
+              <span class="agent-chip agent-chip-highlight">Document Intelligence</span>
+              <span>Bundles · Contracts · Filings</span>
+            </div>
+            <div class="agent-cta">
+              Configure Legal Agent <span>→</span>
+            </div>
+          </article>
+
+          <!-- CAREER AGENT -->
+          <article class="agent-card">
+            <div class="agent-header">
+              <div>
+                <div class="agent-name">Career Agent</div>
+                <div class="agent-realm">Career Realm · NOVA/NAVI</div>
+              </div>
+              <div class="agent-icon">🎯</div>
+            </div>
+            <p class="agent-desc">
+              Turns traits, roles, and purpose into resumes, cover letters, and job
+              search strategy across the NOVA/NAVI ecosystem.
+            </p>
+            <div class="agent-meta">
+              <span class="agent-chip">Resumes · Roles · Alignment</span>
+              <span>Purpose-Driven Careers</span>
+            </div>
+            <div class="agent-cta">
+              Activate Career Agent <span>→</span>
+            </div>
+          </article>
+
+          <!-- PURPOSE AGENT -->
+          <article class="agent-card">
+            <div class="agent-header">
+              <div>
+                <div class="agent-name">Purpose Agent</div>
+                <div class="agent-realm">Identity Realm · NOVA</div>
+              </div>
+              <div class="agent-icon">💫</div>
+            </div>
+            <p class="agent-desc">
+              Helps users reflect on calling, gifting, and alignment. Bridges personal
+              identity to practical decisions.
+            </p>
+            <div class="agent-meta">
+              <span class="agent-chip">Reflection · Statements</span>
+              <span>Purpose-Fluent</span>
+            </div>
+            <div class="agent-cta">
+              Guide with Purpose Agent <span>→</span>
+            </div>
+          </article>
+
+          <!-- MONEY AGENT -->
+          <article class="agent-card">
+            <div class="agent-header">
+              <div>
+                <div class="agent-name">Money Agent</div>
+                <div class="agent-realm">Money Realm · SURF</div>
+              </div>
+              <div class="agent-icon">📈</div>
+            </div>
+            <p class="agent-desc">
+              Interprets SURF analytics, whale patterns, and growth curves so members can
+              see the story behind the numbers.
+            </p>
+            <div class="agent-meta">
+              <span class="agent-chip">Whale Runs · Curves</span>
+              <span>Read the Tides</span>
+            </div>
+            <div class="agent-cta">
+              Consult Money Agent <span>→</span>
+            </div>
+          </article>
+
+          <!-- DATA AGENT -->
+          <article class="agent-card">
+            <div class="agent-header">
+              <div>
+                <div class="agent-name">Data Agent</div>
+                <div class="agent-realm">Data Realm · Analysis4U</div>
+              </div>
+              <div class="agent-icon">📊</div>
+            </div>
+            <p class="agent-desc">
+              Reads spreadsheets, dashboards, and KPIs. Suggests structure, cleaning, and
+              decisions based on real data.
+            </p>
+            <div class="agent-meta">
+              <span class="agent-chip">Dashboards · KPIs</span>
+              <span>Clarity Over Chaos</span>
+            </div>
+            <div class="agent-cta">
+              Engage Data Agent <span>→</span>
+            </div>
+          </article>
+
+          <!-- OPERATIONS AGENT -->
+          <article class="agent-card">
+            <div class="agent-header">
+              <div>
+                <div class="agent-name">Operations Agent</div>
+                <div class="agent-realm">Operations Realm</div>
+              </div>
+              <div class="agent-icon">⚙️</div>
+            </div>
+            <p class="agent-desc">
+              Designs SOPs, workflows, and checklists. Connects dots between tools so
+              your work runs like a system, not a scramble.
+            </p>
+            <div class="agent-meta">
+              <span class="agent-chip">SOPs · Flow</span>
+              <span>Process Intelligence</span>
+            </div>
+            <div class="agent-cta">
+              Build with Operations Agent <span>→</span>
+            </div>
+          </article>
+
+          <!-- CUSTOM AGENT -->
+          <article class="agent-card">
+            <div class="agent-header">
+              <div>
+                <div class="agent-name">Custom Agent</div>
+                <div class="agent-realm">Tailored Realm · Your Org</div>
+              </div>
+              <div class="agent-icon">🧩</div>
+            </div>
+            <p class="agent-desc">
+              A made-to-measure Agentics instance for your church, firm, agency, or
+              company — aligned to your language and flow.
+            </p>
+            <div class="agent-meta">
+              <span class="agent-chip agent-chip-highlight">Premium Build</span>
+              <span>White-Labeled</span>
+            </div>
+            <div class="agent-cta">
+              Design a Custom Agent <span>→</span>
+            </div>
+          </article>
+
+          <!-- LIDAR AGENT -->
+          <article class="agent-card">
+            <div class="agent-header">
+              <div>
+                <div class="agent-name">LIDAR Agent</div>
+                <div class="agent-realm">Mapping Realm · System Insight</div>
+              </div>
+              <div class="agent-icon">🛰️</div>
+            </div>
+            <p class="agent-desc">
+              Scans your realms like a digital LIDAR — revealing structure, blind spots,
+              and optimization paths you couldn’t see before.
+            </p>
+            <div class="agent-meta">
+              <span class="agent-chip agent-chip-highlight">Reveals What’s Hidden</span>
+              <span>System Mapping</span>
+            </div>
+            <div class="agent-cta">
+              Illuminate with LIDAR Agent <span>→</span>
+            </div>
+          </article>
+
+          <!-- ONGUARD AGENT -->
+          <article class="agent-card">
+            <div class="agent-header">
+              <div>
+                <div class="agent-name">OnGuard Cybersecurity</div>
+                <div class="agent-realm">Security Realm · Tech Stack</div>
+              </div>
+              <div class="agent-icon">🛡️</div>
+            </div>
+            <p class="agent-desc">
+              Your Sentinel Agent. Watches the tech stack, access surface, and document
+              flows — alerting and responding when something looks off.
+            </p>
+            <div class="agent-meta">
+              <span class="agent-chip agent-chip-highlight">Stack & Threat Monitoring</span>
+              <span>Security Watchman</span>
+            </div>
+            <div class="agent-cta">
+              Stand Watch with OnGuard <span>→</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PRICING TEASER -->
+      <section class="pricing" id="pricing">
+        <div>
+          <div class="pricing-left-title">Start with a Single Realm. Scale to a Full AI Staff.</div>
+          <div class="pricing-left-sub">
+            Begin with the Agent you need most — Legal, Career, Money, Data, Operations,
+            LIDAR, or OnGuard — then grow into the full Agentics Suite as your work
+            expands.
+          </div>
+          <div class="pricing-pill">
+            <span>Designed for solo founders, firms, ministries, and teams.</span>
+          </div>
+          <div class="pricing-meta">
+            E-LegalBoom, NOVA/NAVI, SURF, and Analysis4U are all Agentics-ready.
+          </div>
+        </div>
+        <div class="pricing-right">
+          <div class="pricing-price">
+            $199<span>/mo for the full Agentics Suite*</span>
+          </div>
+          <button class="pricing-cta">
+            Join the Early Access Waitlist
+            <span>→</span>
+          </button>
+          <div class="pricing-meta">
+            *Example SaaS pricing. Final pricing and tiers can flex by realm and usage.
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <span>© <span class="highlight">Agentics</span> · Realm-Based AI Watchman System.</span>
+        <span>Built to watch, protect, and orchestrate the realms you entrust to it.</span>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
