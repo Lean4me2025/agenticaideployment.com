@@ -2,128 +2,78 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Agentics | Autonomous Operational Risk Management</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Agentics | Autonomous Operational Risk Systems</title>
 
 <style>
-:root {
-  --bg: #050816;
-  --card: #0b1020;
-  --accent: #4fd1c5;
-  --accent2: #63b3ed;
-  --text: #f7fafc;
-  --muted: #a0aec0;
-}
-
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  background: radial-gradient(circle at top, #1a365d, #050816 60%);
-  color: var(--text);
+  margin:0;
+  font-family:system-ui;
+  background: radial-gradient(circle at top,#1a365d,#050816 60%);
+  color:#f7fafc;
 }
 
 .container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 2rem 1.5rem 3rem;
+  max-width:1100px;
+  margin:auto;
+  padding:2rem;
 }
 
-/* HERO */
+h1 {font-size:2.7rem; line-height:1.2;}
+h2 {margin-bottom:10px;}
+p {color:#a0aec0; line-height:1.6;}
 
-.hero {
-  margin-top: 40px;
-}
-
-.hero h1 {
-  font-size: 2.6rem;
-  line-height: 1.2;
-}
-
-.hero span {
-  background: linear-gradient(135deg, #4fd1c5, #63b3ed);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.hero p {
-  margin-top: 1rem;
-  color: var(--muted);
-  line-height: 1.7;
-  max-width: 650px;
-}
-
-.cta {
-  margin-top: 1.5rem;
+span {
+  background:linear-gradient(135deg,#4fd1c5,#63b3ed);
+  -webkit-background-clip:text;
+  color:transparent;
 }
 
 button {
-  padding: 0.7rem 1.4rem;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
+  padding:10px 18px;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
 }
 
 .primary {
-  background: linear-gradient(135deg, #4fd1c5, #63b3ed);
-  color: #050816;
+  background:linear-gradient(135deg,#4fd1c5,#63b3ed);
+  color:#050816;
 }
 
 .secondary {
-  background: transparent;
-  border: 1px solid #718096;
-  color: var(--text);
-  margin-left: 10px;
+  background:transparent;
+  border:1px solid #718096;
+  color:#f7fafc;
+  margin-left:10px;
 }
 
-/* SECTIONS */
-
-.section {
-  margin-top: 60px;
-}
-
-.section h2 {
-  font-size: 1.5rem;
-}
-
-.section p {
-  color: var(--muted);
-  max-width: 700px;
-}
-
-/* GRID */
+.section {margin-top:60px;}
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 20px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:20px;
 }
 
 .card {
-  background: var(--card);
-  padding: 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.06);
+  background:#0b1020;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.06);
 }
 
-.card h3 {
-  margin-bottom: 6px;
-}
+.card h3 {margin-bottom:6px;}
+.card p {font-size:0.85rem;}
 
-.card p {
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-/* FOOTER */
-
-.footer {
-  margin-top: 70px;
-  font-size: 0.75rem;
-  color: var(--muted);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding-top: 20px;
+input {
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  margin-right:10px;
+  width:260px;
 }
 </style>
 </head>
@@ -132,113 +82,119 @@ button {
 
 <div class="container">
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>
-      Autonomous <span>AI Watchmen</span><br>
-      for Cybersecurity, Compliance, and Operations
-    </h1>
+<!-- HERO -->
+<h1>
+Autonomous <span>AI Watchmen</span><br>
+for Cybersecurity, Compliance, and Operations
+</h1>
 
-    <p>
-      Agentics is an autonomous operational risk management system that watches your digital environment
-      in real time — detecting issues, enforcing controls, and preventing failures before they become damage.
-    </p>
+<p>
+Agentics designs and deploys autonomous operational risk systems that continuously monitor,
+control, and protect your organization — before issues become failures.
+</p>
 
-    <div class="cta">
-      <button class="primary">Request Early Access</button>
-      <button class="secondary">View Capabilities</button>
-    </div>
-  </div>
+<button class="primary" onclick="document.getElementById('proposal').scrollIntoView({behavior:'smooth'})">
+Request a Proposal
+</button>
 
-  <!-- PROBLEM -->
-  <div class="section">
-    <h2>Most Systems Fail Silently</h2>
-    <p>
-      Security gaps, compliance drift, broken workflows, and human error rarely announce themselves.
-      They accumulate quietly until they become financial loss, legal exposure, or operational failure.
-    </p>
-  </div>
+<button class="secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">
+See How We Build It
+</button>
 
-  <!-- SOLUTION -->
-  <div class="section">
-    <h2>Agentics Changes That</h2>
-    <p>
-      Agentics places autonomous AI agents inside your operational environments — continuously watching,
-      analyzing, and responding across your systems.
-    </p>
+<!-- PROBLEM -->
+<div class="section">
+<h2>Most Systems Fail Silently</h2>
+<p>
+Security gaps, compliance drift, broken workflows, and human error rarely announce themselves.
+They accumulate quietly until they result in financial loss, regulatory exposure, or operational disruption.
+</p>
+</div>
 
-    <div class="grid">
-      <div class="card">
-        <h3>LIDAR</h3>
-        <p>Scans systems to reveal blind spots, inefficiencies, and structural risks.</p>
-      </div>
+<!-- SOLUTION -->
+<div class="section">
+<h2>Agentics Changes That</h2>
 
-      <div class="card">
-        <h3>OnGuard</h3>
-        <p>Monitors cybersecurity posture and detects threats across your stack.</p>
-      </div>
+<div class="grid">
+<div class="card"><h3>LIDAR</h3><p>Identifies blind spots and hidden system risk.</p></div>
+<div class="card"><h3>OnGuard</h3><p>Protects your technology stack and access surface.</p></div>
+<div class="card"><h3>ARMD</h3><p>Enforces compliance controls and prevents drift.</p></div>
+<div class="card"><h3>Sentinel</h3><p>Monitors behavior patterns and detects anomalies.</p></div>
+<div class="card"><h3>Agentics Core</h3><p>Coordinates all agents into one system.</p></div>
+<div class="card"><h3>Custom Agents</h3><p>Built specifically for your environment.</p></div>
+</div>
+</div>
 
-      <div class="card">
-        <h3>ARMD</h3>
-        <p>Enforces compliance controls and prevents drift from required standards.</p>
-      </div>
+<!-- DMAIC -->
+<div id="how" class="section">
+<h2>How We Build It</h2>
+<p>
+Agentics is built on proven process discipline combined with agentic AI.
+We apply a structured methodology to design autonomous systems that operate reliably at scale.
+</p>
 
-      <div class="card">
-        <h3>Sentinel</h3>
-        <p>Tracks behavioral and operational patterns to detect anomalies early.</p>
-      </div>
+<div class="grid">
+<div class="card">
+<h3>1. Define</h3>
+<p>Identify the operational domain, risks, and critical workflows.</p>
+</div>
 
-      <div class="card">
-        <h3>Agentics Core</h3>
-        <p>Coordinates all agents into a unified operational intelligence system.</p>
-      </div>
+<div class="card">
+<h3>2. Measure</h3>
+<p>Capture baseline performance, failure points, and control gaps.</p>
+</div>
 
-      <div class="card">
-        <h3>Custom Agents</h3>
-        <p>Tailored agents built specifically for your workflows and environment.</p>
-      </div>
-    </div>
-  </div>
+<div class="card">
+<h3>3. Analyze</h3>
+<p>Locate patterns of variation, delay, and silent failure.</p>
+</div>
 
-  <!-- OUTCOME -->
-  <div class="section">
-    <h2>What This Means for You</h2>
+<div class="card">
+<h3>4. Improve</h3>
+<p>Deploy agents, controls, alerts, and automated responses.</p>
+</div>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Fewer Failures</h3>
-        <p>Issues are caught before they escalate into damage.</p>
-      </div>
+<div class="card">
+<h3>5. Control</h3>
+<p>Continuously monitor through dashboards, alerts, and system intelligence.</p>
+</div>
 
-      <div class="card">
-        <h3>Continuous Compliance</h3>
-        <p>Your systems stay aligned automatically.</p>
-      </div>
+<div class="card">
+<h3>6. Operate</h3>
+<p>The system runs autonomously, adapting and maintaining alignment.</p>
+</div>
+</div>
+</div>
 
-      <div class="card">
-        <h3>Operational Clarity</h3>
-        <p>You see what’s actually happening across your environment.</p>
-      </div>
-    </div>
-  </div>
+<!-- OUTCOME -->
+<div class="section">
+<h2>What This Means</h2>
 
-  <!-- CTA -->
-  <div class="section">
-    <h2>Build Your AI Watchman System</h2>
-    <p>
-      Start with one domain or deploy across your entire organization.
-      Agentics scales with your operational footprint.
-    </p>
+<div class="grid">
+<div class="card"><h3>Fewer Failures</h3><p>Issues are stopped before escalation.</p></div>
+<div class="card"><h3>Continuous Compliance</h3><p>Controls stay enforced automatically.</p></div>
+<div class="card"><h3>Operational Clarity</h3><p>Full visibility across your systems.</p></div>
+</div>
+</div>
 
-    <div class="cta">
-      <button class="primary">Join Early Access</button>
-    </div>
-  </div>
+<!-- PROPOSAL -->
+<div id="proposal" class="section">
+<h2>Request a Proposal</h2>
+<p>
+Tell us where you need visibility, control, or protection — and we will design an Agentics deployment tailored to your environment.
+</p>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    © Agentics · Autonomous Operational Risk Management System
-  </div>
+<input type="text" placeholder="Company Name">
+<input type="email" placeholder="Email">
+<br><br>
+<button class="primary">Submit Request</button>
+</div>
+
+<!-- FOOTER -->
+<div class="section">
+<p style="font-size:12px;color:#718096;">
+© Agentics · Autonomous Operational Risk Systems
+</p>
+</div>
 
 </div>
 
